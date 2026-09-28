@@ -1,0 +1,17 @@
+# Windows
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# PowerShell
+*.ps1.bak
+
+# Sorties generees par les scripts (ne doivent pas etre versionnees)
+reports/*
+logs/*
+!reports/.gitkeep
+!logs/.gitkeep
+
+# Divers
+.vscode/
+*.tmp
