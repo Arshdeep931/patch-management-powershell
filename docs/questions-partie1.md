@@ -30,4 +30,10 @@ Deja parce que si la machine n'est pas disponible, ca ne sert a rien de lancer u
 
 ## Quels problemes de securite peuvent apparaitre si PowerShell Remoting est active sans restriction ?
 
-_A completer._
+Activer PowerShell Remoting sans restriction pose plusieurs risques. D'abord, si TrustedHosts est mal configuré (par exemple avec * pour accepter n'importe quelle machine), n'importe quel poste du réseau peut potentiellement se connecter et exécuter des commandes à distance, ce qui élargit énormément la surface d'attaque. Si un attaquant récupère les identifiants d'un compte admin (par phishing, brute force, etc.), il peut prendre le contrôle de toutes les machines qui acceptent les connexions WinRM.
+
+Ensuite, le protocole WinRM écoute par défaut sur les ports 5985 (HTTP) et 5986 (HTTPS). Sans HTTPS, les identifiants et les commandes transitent en clair sur le réseau, ce qui les rend interceptables (attaque man-in-the-middle par exemple).
+
+Il y a aussi le risque de mouvement latéral : dans un environnement où toutes les machines ont Remoting activé sans restriction, un attaquant qui compromet une seule machine peut rebondir facilement vers les autres, surtout si les comptes locaux partagent le même mot de passe ou (comme je l'ai découvert en pratique) si des machines clonées partagent le même SID, ce qui peut créer des comportements d'authentification imprévus.
+
+Enfin, un LocalAccountTokenFilterPolicy mal configuré ou une politique de firewall trop permissive (ports WinRM ouverts vers l'extérieur, ICMP ouvert sans restriction) augmente encore l'exposition. C'est pour ça qu'en environnement réel, il faut limiter TrustedHosts aux machines nécessaires, privilégier HTTPS pour WinRM, restreindre les comptes ayant le droit de se connecter à distance, et éviter d'activer Remoting sur des machines qui n'en ont pas besoin.
