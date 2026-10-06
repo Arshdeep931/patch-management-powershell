@@ -44,7 +44,6 @@ foreach ($machine in $lignes) {
         try {
             $correctifsDistants = Invoke-Command -ComputerName $adresseIP -Credential $cred -ErrorAction Stop -ScriptBlock {
                 Get-HotFix | Select-Object HotFixID, Description, InstalledOn, InstalledBy
-                
             }
 
             foreach ($correctif in $correctifsDistants) {
@@ -57,7 +56,6 @@ foreach ($machine in $lignes) {
                     Etat             = "Accessible"
                 }
                 $inventairePatches += $infos
-
             }
         }
         catch {
@@ -73,8 +71,27 @@ foreach ($machine in $lignes) {
         }
     }
 }
+
 $inventaireTrie = $inventairePatches | Sort-Object Poste, @{Expression = "DateInstallation"; Descending = $true}
 $inventaireTrie | Format-Table -AutoSize
+
+# Resume par machine : nombre de correctifs, date et KB du plus recent
+$groupes = $inventaireTrie | Where-Object { $_.Etat -eq "Accessible" } | Group-Object Poste
+$resume = @()
+
+foreach ($g in $groupes) {
+    $dernier = $g.Group[0]
+
+    $infos = [pscustomobject]@{
+        Poste                = $g.Name
+        NombreCorrectifs     = $g.Count
+        DernierCorrectifDate = $dernier.DateInstallation
+        DernierKB            = $dernier.KB
+    }
+    $resume += $infos
+}
+
+$resume | Format-Table -AutoSize
 
 $inventaireTrie | Export-Csv -Path (Join-Path $PSScriptRoot "..\reports\PatchesInventory.csv") -NoTypeInformation -Encoding UTF8
 
