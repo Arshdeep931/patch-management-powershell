@@ -2,7 +2,7 @@
 
 ## Contexte
 
-Projet realise en monome (Arshdeep Singh) dans le cadre du cours Securite des systemes (S. Benayoune, EFREI).
+Projet realise en binome (Arshdeep Singh et Fahed Tadrist) dans le cadre du cours Securite des systemes (S. Benayoune, EFREI).
 Date limite de remise : 31 octobre 2026.
 
 ## Virtualisation
@@ -25,7 +25,8 @@ L'ensemble du TP se deroule donc entre VM Windows :
 |---------|--------------------------|
 | ADMIN01 | Poste d'administration  |
 | PC01    | Poste supervise          |
-| PC02    | Poste supervise (option) |
+| PC02    | Poste declare (VM inexistante) |
+| PC03    | Poste declare (VM inexistante) |
 
 ## Plan d'adressage
 
@@ -36,16 +37,17 @@ Reseau prive isole entre les VM, sans passerelle.
 | ADMIN01 | 192.168.10.10  |
 | PC01    | 192.168.10.11  |
 | PC02    | 192.168.10.12  |
+| PC03    | 192.168.10.13  |
 
 ## Points de configuration valides
 
-- [ ] Profil reseau des VM passe en "Prive" (Set-NetConnectionProfile)
-- [ ] Regle pare-feu ICMPv4 entrant autorisee
-- [ ] Test-Connection reussi dans les deux sens entre toutes les machines
-- [ ] PowerShell Remoting active (Enable-PSRemoting)
-- [ ] Test-WSMan fonctionnel entre ADMIN01 et les postes supervises
-- [ ] Enter-PSSession et Invoke-Command testes avec succes
+- [x] Profil reseau des VM passe en "Prive" (Set-NetConnectionProfile)
+- [x] Regle pare-feu ICMPv4 entrant autorisee
+- [x] Test-Connection reussi dans les deux sens entre toutes les machines
+- [x] PowerShell Remoting active (Enable-PSRemoting)
+- [x] Test-WSMan fonctionnel entre ADMIN01 et les postes supervises
+- [x] Enter-PSSession et Invoke-Command testes avec succes
 
 ## Notes
 
-A completer au fil de l'avancement (captures dans docs/screenshots/).
+PC02 et PC03 sont seulement ecrits dans config/computers.txt : ils servent a tester le cas d'un poste inaccessible. Captures dans docs/screenshots/.

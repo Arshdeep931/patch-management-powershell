@@ -33,10 +33,6 @@ config/
   required-patches.txt         Un correctif obligatoire (KB) par ligne
 docs/
   journal-de-bord.md           Journal de bord du projet
-  questions-partie1.md         Réponses aux questions (Partie 1)
-  questions-partie4.md         Réponses aux questions (Partie 4)
-  questions-partie7.md         Réponses aux questions (Partie 7)
-  questions-partie8.md         Sécurisation de la solution (Partie 8)
   environnement.md             Description de l'environnement de test
 reports/                       Rapports et journal générés (non versionnés)
 ```
@@ -82,7 +78,7 @@ La synthèse comprend le nombre de postes, accessibles, inaccessibles, conformes
 - Aucun mot de passe dans les scripts. Un éventuel mot de passe de messagerie est lu depuis `config/smtp-cred.xml`, créé avec `Export-Clixml` (chiffrement DPAPI). Ce fichier est dans le `.gitignore`.
 - Le dossier `reports/` n'est pas versionné, car il contient la liste des postes vulnérables.
 - La règle de pare-feu WinRM de PC01 est restreinte à l'adresse d'ADMIN01.
-- Un compte dédié à moindre privilège (svc-patch) a été testé. Il ne peut pas lire la liste des correctifs (Get-HotFix renvoie 0), la solution serait JEA, étudiée dans `docs/questions-partie8.md`.
+- Un compte dédié à moindre privilège (svc-patch) a été testé. Il ne peut pas lire la liste des correctifs (Get-HotFix renvoie 0), la solution serait JEA, étudiée dans la partie sécurisation du rapport (annexe D).
 
 ## Limites
 
@@ -94,4 +90,4 @@ La synthèse comprend le nombre de postes, accessibles, inaccessibles, conformes
 
 ## Livrables
 
-Le rapport écrit et la vidéo de démonstration sont déposés sur Moodle.
+Le rapport écrit (avec les réponses aux questions du sujet en annexe) et la vidéo de démonstration sont déposés sur Moodle.

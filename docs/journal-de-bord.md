@@ -19,7 +19,7 @@ Une ligne (ou quelques-unes) par seance de travail : ce qui a ete fait, les prob
 ## 30/09/2026
 
 - Partie 3 : script Get-InventairePatches.ps1. Recuperation des correctifs installes (Get-HotFix) sur chaque poste, avec un resume par machine : nombre de correctifs et dernier correctif installe (Group-Object).
-- Partie 4 : script Test-Conformite.ps1 et fichier config/required-patches.txt. Un poste est CONFORME seulement si toutes les KB requises sont installees, NON CONFORME s'il en manque, INACCESSIBLE s'il ne repond pas. Calcul du taux de conformite sans compter les postes inaccessibles. Reponses aux questions dans docs/questions-partie4.md.
+- Partie 4 : script Test-Conformite.ps1 et fichier config/required-patches.txt. Un poste est CONFORME seulement si toutes les KB requises sont installees, NON CONFORME s'il en manque, INACCESSIBLE s'il ne repond pas. Calcul du taux de conformite sans compter les postes inaccessibles. Reponse a la question de la partie dans le rapport (annexe B).
 - Probleme rencontre : comparaison des listes de KB avec -notcontains (le tableau doit etre a gauche), corrige apres plusieurs essais.
 
 ## 07/10/2026
@@ -38,4 +38,4 @@ Une ligne (ou quelques-unes) par seance de travail : ce qui a ete fait, les prob
 - Pas de mot de passe dans le script : si un fichier config/smtp-cred.xml existe (cree avec Get-Credential | Export-Clixml, chiffre par DPAPI), il est utilise, sinon l'envoi se fait sans authentification. Ce fichier est ajoute au .gitignore.
 - Probleme rencontre : la VM n'a pas acces a internet, donc impossible d'installer Papercut ou smtp4dev pour tester. Solution : ecriture de scripts/Start-SmtpTest.ps1, un mini serveur SMTP en PowerShell (TcpListener sur localhost:25) qui enregistre le mail en .eml, en version lisible .txt et extrait la piece jointe.
 - Tests : sans le serveur de test, l'envoi echoue et le journal contient "Notification non envoyee" avec le message d'erreur (cas d'echec valide). Avec le serveur lance, le mail arrive avec l'objet "[PATCH MANAGEMENT] Anomalies detectees", 3 postes controles, 1 non conforme (PC01, KB5054999 manquante), 2 inaccessibles (PC02, PC03) et le CSV en piece jointe.
-- Reponses aux questions 2 et 3 de la partie (inconvenients, alternatives modernes) dans docs/questions-partie7.md.
+- Reponses aux questions 2 et 3 de la partie (inconvenients, alternatives modernes) dans le rapport (annexe C).
