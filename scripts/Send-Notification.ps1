@@ -72,6 +72,7 @@ $nbInaccessibles = @($rapport | Where-Object { $_.EtatConformite -eq "INACCESSIB
 # Objet et corps du message (e accent aigu = 0xE9, o accent circonflexe = 0xF4)
 $eAigu = [char]0xE9
 $oCirc = [char]0xF4
+$aGrave = [char]0xE0
 
 $objetMail = "[PATCH MANAGEMENT] Anomalies d${eAigu}tect${eAigu}es"
 
@@ -120,8 +121,8 @@ if (Test-Path $cheminIdentifiants) {
 # Envoi et trace dans le journal
 try {
     Send-MailMessage @parametresMail
-    Write-Log "Notification envoy${eAigu}e ${eAigu} $destinataire"
-    Write-Host "Notification envoyee a $destinataire"
+Write-Log "Notification envoy${eAigu}e ${aGrave} $destinataire"
+ Write-Host "Notification envoyee a $destinataire"
 }
 catch {
     Write-Log "ERREUR ; Notification non envoy${eAigu}e"
