@@ -35,6 +35,7 @@ docs/
   journal-de-bord.md           Journal de bord du projet
   environnement.md             Description de l'environnement de test
 reports/                       Rapports et journal générés (non versionnés)
+rapport/                       Rapport écrit (PDF et Word)
 ```
 
 Le sujet ne comporte pas de partie 5.
@@ -90,4 +91,4 @@ La synthèse comprend le nombre de postes, accessibles, inaccessibles, conformes
 
 ## Livrables
 
-Le rapport écrit (avec les réponses aux questions du sujet en annexe) et la vidéo de démonstration sont déposés sur Moodle.
+Le rapport écrit (avec les réponses aux questions du sujet en annexe) est dans le dossier `rapport/`. Le rapport et le lien de la vidéo de démonstration sont déposés sur Moodle.
