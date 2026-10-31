@@ -30,3 +30,12 @@ Une ligne (ou quelques-unes) par seance de travail : ce qui a ete fait, les prob
 - Problemes rencontres : un second Invoke-Command dans le scriptblock ne marchait pas (les variables locales n'existent pas sur la machine distante), corrige en recuperant les KB une fois et en comparant en local. Faute de frappe sur $htmlPostes qui laissait la section "Detail par poste" vide dans le HTML. Collage du script en double dans le fichier a cause d'un mauvais copier-coller, corrige en repartant d'un fichier propre.
 - Tests : avec la fausse KB5054999 dans required-patches.txt, PC01 est NON CONFORME (taux 0 %). Sans elle, PC01 est CONFORME (taux 100 %). PC02 et PC03 restent INACCESSIBLE dans les deux cas (VM eteintes).
 - Commit 9f4e779 : scripts/PatchManager.ps1.
+
+
+## 31/10/2026
+
+- Partie 7 (notification) : creation de scripts/Send-Notification.ps1. Le script prend le dernier RapportSecurite_*.csv de reports/, cherche les postes NON CONFORME ou INACCESSIBLE et ne fait rien (juste une ligne dans le journal) s'il n'y en a aucun. Sinon il construit le message demande par le sujet (objet, date du controle, nombre de postes controles / non conformes / inaccessibles, liste des postes avec les KB manquantes), joint le rapport CSV et envoie le mail avec Send-MailMessage. Le resultat est note dans PatchManager.log ("Notification envoyee" ou "ERREUR ; Notification non envoyee").
+- Pas de mot de passe dans le script : si un fichier config/smtp-cred.xml existe (cree avec Get-Credential | Export-Clixml, chiffre par DPAPI), il est utilise, sinon l'envoi se fait sans authentification. Ce fichier est ajoute au .gitignore.
+- Probleme rencontre : la VM n'a pas acces a internet, donc impossible d'installer Papercut ou smtp4dev pour tester. Solution : ecriture de scripts/Start-SmtpTest.ps1, un mini serveur SMTP en PowerShell (TcpListener sur localhost:25) qui enregistre le mail en .eml, en version lisible .txt et extrait la piece jointe.
+- Tests : sans le serveur de test, l'envoi echoue et le journal contient "Notification non envoyee" avec le message d'erreur (cas d'echec valide). Avec le serveur lance, le mail arrive avec l'objet "[PATCH MANAGEMENT] Anomalies detectees", 3 postes controles, 1 non conforme (PC01, KB5054999 manquante), 2 inaccessibles (PC02, PC03) et le CSV en piece jointe.
+- Reponses aux questions 2 et 3 de la partie (inconvenients, alternatives modernes) dans docs/questions-partie7.md.
