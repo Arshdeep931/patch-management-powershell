@@ -17,3 +17,5 @@ logs/*
 *.tmp
 .DS_Store
 **/.DS_Store
+
+config/smtp-cred.xml
