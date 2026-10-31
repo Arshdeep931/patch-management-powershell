@@ -121,7 +121,7 @@ if (Test-Path $cheminIdentifiants) {
 # Envoi et trace dans le journal
 try {
     Send-MailMessage @parametresMail
-Write-Log "Notification envoy${eAigu}e ${aGrave} $destinataire"
+ Write-Log "Notification envoy${eAigu}e ${aGrave} $destinataire"
  Write-Host "Notification envoyee a $destinataire"
 }
 catch {
